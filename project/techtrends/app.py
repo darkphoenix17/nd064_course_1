@@ -75,6 +75,19 @@ def status():
     #app.logger.info('Status request successfull')
     return response
 
+@app.route("/metrics")
+def metric():
+    connection = get_db_connection()
+    postCount = connection.execute('SELECT * FROM posts').fetchall()
+    connection.close()
+    response = app.response_class(
+        response=json.dumps({"db_connection_count": COUNT, "post_count": str(len(postCount))}),
+            status=200,
+            mimetype='application/json'
+    )
+    #app.logger.info('Metrics request successfull')
+    return response
+
 # start the application on port 3111
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port='3111')
