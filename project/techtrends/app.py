@@ -14,6 +14,7 @@ def hit_counter():
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
+    hit_counter():
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
